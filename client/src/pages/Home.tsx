@@ -97,11 +97,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-foreground selection:bg-primary/20 pb-20">
       {/* Visual Hero Banner */}
-      <div className="w-full relative bg-[#041E28]">
+      <div className="w-full relative">
         <img 
           src={newTurtleImg} 
           alt="Galapagos Green Sea Turtle" 
-          className="w-full h-auto max-h-[85vh] object-contain mx-auto"
+          className="w-full h-auto max-h-[85vh] object-cover mx-auto"
         />
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-6 text-center">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
@@ -112,7 +112,7 @@ export default function Home() {
       </div>
 
       {/* Header Section */}
-      <header className="px-6 md:px-12 lg:px-24 max-w-5xl mx-auto mt-12 md:mt-16">
+      <header className="px-6 md:px-12 lg:px-24 max-w-5xl mx-auto mt-6 md:mt-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
