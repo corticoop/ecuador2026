@@ -103,11 +103,10 @@ export default function Home() {
           alt="Galapagos Green Sea Turtle" 
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
       </div>
 
       {/* Header Section */}
-      <header className="relative -mt-20 md:-mt-32 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto z-10">
+      <header className="relative -mt-16 md:-mt-28 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
