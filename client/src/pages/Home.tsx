@@ -1,6 +1,6 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { MapPin, Calendar, Camera, Heart } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Calendar, Camera, Heart, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Asset imports
 import luggageImg from "@assets/IMG_3152_1773063740528.jpg";
@@ -94,6 +94,44 @@ const timelineData: TimelineEvent[] = [
 ];
 
 export default function Home() {
+  const [selectedGallery, setSelectedGallery] = useState<{ images: string[], initialIndex: number } | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Sync index when a new gallery is opened
+  React.useEffect(() => {
+    if (selectedGallery) {
+      setCurrentIndex(selectedGallery.initialIndex);
+    }
+  }, [selectedGallery]);
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedGallery) {
+      setCurrentIndex((prev) => (prev === selectedGallery.images.length - 1 ? 0 : prev + 1));
+    }
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedGallery) {
+      setCurrentIndex((prev) => (prev === 0 ? selectedGallery.images.length - 1 : prev - 1));
+    }
+  };
+
+  const closeGallery = () => setSelectedGallery(null);
+
+  // Handle keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedGallery) return;
+      if (e.key === 'Escape') closeGallery();
+      if (e.key === 'ArrowRight') setCurrentIndex((prev) => (prev === selectedGallery.images.length - 1 ? 0 : prev + 1));
+      if (e.key === 'ArrowLeft') setCurrentIndex((prev) => (prev === 0 ? selectedGallery.images.length - 1 : prev - 1));
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedGallery]);
+
   return (
     <div className="min-h-screen bg-white text-foreground selection:bg-primary/20 pb-20">
       {/* Visual Hero Banner */}
@@ -209,16 +247,23 @@ export default function Home() {
                   {event.description}
                 </p>
 
-                {/* Images Grid - Removed hard cropping to show full images */}
+                {/* Images Grid - With gallery functionality */}
                 <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {event.images.length > 0 ? (
                     event.images.map((img, i) => (
-                      <div key={i} className="group relative rounded-2xl overflow-hidden bg-secondary border border-border/50">
+                      <div 
+                        key={i} 
+                        className="group relative rounded-2xl overflow-hidden bg-secondary border border-border/50 cursor-pointer"
+                        onClick={() => setSelectedGallery({ images: event.images, initialIndex: i })}
+                      >
                         <img 
                           src={img} 
                           alt={`Photo from ${event.title}`}
                           className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                         />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
+                        </div>
                       </div>
                     ))
                   ) : (
@@ -239,6 +284,64 @@ export default function Home() {
       <footer className="py-12 text-center text-muted-foreground text-sm border-t border-border mt-12">
         <p>Updating live from the equator. More adventures to come!</p>
       </footer>
+
+      {/* Fullscreen Image Gallery Modal */}
+      <AnimatePresence>
+        {selectedGallery && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center"
+            onClick={closeGallery}
+          >
+            <button 
+              onClick={(e) => { e.stopPropagation(); closeGallery(); }}
+              className="absolute top-6 right-6 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {selectedGallery.images.length > 1 && (
+              <button 
+                onClick={handlePrev}
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </button>
+            )}
+
+            <div className="w-full h-full max-w-6xl max-h-[90vh] p-4 md:p-12 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              <motion.img
+                key={currentIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                src={selectedGallery.images[currentIndex]}
+                alt={`Gallery image ${currentIndex + 1}`}
+                className="max-w-full max-h-full object-contain rounded-md"
+              />
+            </div>
+
+            {selectedGallery.images.length > 1 && (
+              <button 
+                onClick={handleNext}
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+              >
+                <ChevronRight className="w-8 h-8" />
+              </button>
+            )}
+
+            {/* Image Counter */}
+            {selectedGallery.images.length > 1 && (
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm tracking-widest bg-black/50 px-4 py-1.5 rounded-full">
+                {currentIndex + 1} / {selectedGallery.images.length}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
