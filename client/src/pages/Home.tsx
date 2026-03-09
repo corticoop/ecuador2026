@@ -148,13 +148,25 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="rounded-3xl overflow-hidden border border-border shadow-sm bg-secondary/30"
+          className="rounded-3xl overflow-hidden border border-border shadow-sm bg-secondary/30 relative"
         >
           <img 
             src={mapImg} 
             alt="Trip Itinerary Map" 
-            className="w-full h-auto object-contain"
+            className="w-full h-auto object-contain relative z-0"
           />
+          {/* Equator Overlay */}
+          <div className="absolute top-[46%] left-0 right-0 border-t-2 border-dashed border-primary/60 z-10 hidden md:flex items-center" style={{ pointerEvents: 'none' }}>
+            <span className="text-primary text-xs font-bold px-2 py-1 bg-white/80 backdrop-blur-sm rounded ml-6 shadow-sm border border-primary/20">
+              EQUATOR (0°)
+            </span>
+          </div>
+          {/* Mobile version of equator label */}
+          <div className="absolute top-[46%] left-0 right-0 border-t-2 border-dashed border-primary/60 z-10 flex md:hidden items-center" style={{ pointerEvents: 'none' }}>
+            <span className="text-primary text-[10px] font-bold px-1.5 py-0.5 bg-white/80 backdrop-blur-sm rounded ml-2 shadow-sm border border-primary/20">
+              EQUATOR
+            </span>
+          </div>
         </motion.div>
       </section>
 
