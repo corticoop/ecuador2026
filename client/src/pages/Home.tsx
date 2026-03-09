@@ -6,7 +6,7 @@ import { MapPin, Calendar, Camera, Heart } from "lucide-react";
 import luggageImg from "@assets/IMG_3152_1773063740528.jpg";
 import busImg from "@assets/IMG_0003_1773063740530.jpg";
 import mapImg from "@assets/GPI_1773063930173.jpg";
-import turtleImg from "@/assets/images/turtle.jpg";
+import newTurtleImg from "@assets/closeup-green-sea-turtle-swimming-underwater-lights_1773064213060.jpg";
 
 interface TimelineEvent {
   id: string;
@@ -97,13 +97,13 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-foreground selection:bg-primary/20 pb-20">
       {/* Visual Hero Banner */}
-      <div className="w-full h-[40vh] md:h-[50vh] relative overflow-hidden">
+      <div className="w-full h-[50vh] md:h-[60vh] relative overflow-hidden">
         <img 
-          src={turtleImg} 
-          alt="Galapagos Giant Tortoise" 
+          src={newTurtleImg} 
+          alt="Galapagos Green Sea Turtle" 
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
       </div>
 
       {/* Header Section */}
@@ -133,10 +133,9 @@ export default function Home() {
 
           {/* Supporter Callout */}
           <div className="mt-8 p-6 md:p-8 bg-green-50/80 border border-green-200/60 rounded-2xl relative shadow-sm">
-            <Heart className="w-8 h-8 text-primary/40 absolute top-6 left-6" />
-            <div className="pl-12">
+            <div>
               <p className="text-lg md:text-xl text-green-900 italic font-serif leading-relaxed">
-                "A huge thank you to all my family and friends who supported me to make this trip possible. I am so grateful and excited to share this amazing adventure with you all!"
+                "Thank you to all my family and friends who supported me to make this trip possible. I am so grateful and excited to share this amazing adventure with you all!"
               </p>
               <p className="text-primary font-bold mt-4">— William</p>
             </div>
