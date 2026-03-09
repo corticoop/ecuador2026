@@ -97,34 +97,32 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-foreground selection:bg-primary/20 pb-20">
       {/* Visual Hero Banner */}
-      <div className="w-full h-[50vh] md:h-[60vh] relative overflow-hidden">
+      <div className="w-full relative bg-[#041E28]">
         <img 
           src={newTurtleImg} 
           alt="Galapagos Green Sea Turtle" 
-          className="w-full h-full object-cover object-center"
+          className="w-full h-auto max-h-[85vh] object-contain mx-auto"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-6 text-center">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+            William's <br className="hidden md:block" />
+            Galapagos Adventure
+          </h1>
+        </div>
       </div>
 
       {/* Header Section */}
-      <header className="relative -mt-20 md:-mt-32 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto z-10">
+      <header className="px-6 md:px-12 lg:px-24 max-w-5xl mx-auto mt-12 md:mt-16">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-6 bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-xl border border-white/40"
+          className="space-y-6"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium tracking-wide">
             <MapPin className="w-4 h-4" />
             Ecuador & Galapagos Islands
           </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1] text-black">
-            William's <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-green-400">
-              Galapagos Adventure
-            </span>
-          </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed font-serif">
             Walking in Darwin's footsteps across the fascinating archipelago. 
