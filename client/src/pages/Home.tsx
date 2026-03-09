@@ -1,10 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MapPin, Calendar, Camera } from "lucide-react";
+import { MapPin, Calendar, Camera, Heart } from "lucide-react";
 
 // Asset imports
 import luggageImg from "@assets/IMG_3152_1773063740528.jpg";
 import busImg from "@assets/IMG_0003_1773063740530.jpg";
+import mapImg from "@assets/GPI_1773063930173.jpg";
+import turtleImg from "@/assets/images/turtle.jpg";
 
 interface TimelineEvent {
   id: string;
@@ -93,21 +95,31 @@ const timelineData: TimelineEvent[] = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-foreground selection:bg-primary/20">
-      {/* Hero Section */}
-      <header className="relative pt-32 pb-20 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
+    <div className="min-h-screen bg-white text-foreground selection:bg-primary/20 pb-20">
+      {/* Visual Hero Banner */}
+      <div className="w-full h-[40vh] md:h-[50vh] relative overflow-hidden">
+        <img 
+          src={turtleImg} 
+          alt="Galapagos Giant Tortoise" 
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
+      </div>
+
+      {/* Header Section */}
+      <header className="relative -mt-20 md:-mt-32 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-6"
+          className="space-y-6 bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-xl border border-white/40"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium tracking-wide">
             <MapPin className="w-4 h-4" />
             Ecuador & Galapagos Islands
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.1] text-black">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1] text-black">
             William's <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-green-400">
               Galapagos Adventure
@@ -118,12 +130,39 @@ export default function Home() {
             Walking in Darwin's footsteps across the fascinating archipelago. 
             Follow along as we explore giant tortoises, volcanic landscapes, and Andean culture on this incredible school expedition.
           </p>
+
+          {/* Supporter Callout */}
+          <div className="mt-8 p-6 md:p-8 bg-green-50/80 border border-green-200/60 rounded-2xl relative shadow-sm">
+            <Heart className="w-8 h-8 text-primary/40 absolute top-6 left-6" />
+            <div className="pl-12">
+              <p className="text-lg md:text-xl text-green-900 italic font-serif leading-relaxed">
+                "A huge thank you to all my family and friends who supported me to make this trip possible. I am so grateful and excited to share this amazing adventure with you all!"
+              </p>
+              <p className="text-primary font-bold mt-4">— William</p>
+            </div>
+          </div>
         </motion.div>
       </header>
 
+      {/* Map Section */}
+      <section className="px-6 md:px-12 lg:px-24 max-w-5xl mx-auto mt-16 md:mt-24">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="rounded-3xl overflow-hidden border border-border shadow-sm bg-secondary/30"
+        >
+          <img 
+            src={mapImg} 
+            alt="Trip Itinerary Map" 
+            className="w-full h-auto object-contain"
+          />
+        </motion.div>
+      </section>
+
       {/* Timeline Section */}
-      <main className="px-6 md:px-12 lg:px-24 py-12 max-w-5xl mx-auto">
-        <div className="relative border-l border-primary/20 ml-4 md:ml-8 space-y-24 pb-24">
+      <main className="px-6 md:px-12 lg:px-24 py-16 md:py-24 max-w-5xl mx-auto">
+        <div className="relative border-l border-primary/20 ml-4 md:ml-8 space-y-24">
           
           {timelineData.map((event, index) => (
             <motion.div 
@@ -160,20 +199,20 @@ export default function Home() {
                   {event.description}
                 </p>
 
-                {/* Images Grid */}
+                {/* Images Grid - Removed hard cropping to show full images */}
                 <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {event.images.length > 0 ? (
                     event.images.map((img, i) => (
-                      <div key={i} className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-secondary">
+                      <div key={i} className="group relative rounded-2xl overflow-hidden bg-secondary border border-border/50">
                         <img 
                           src={img} 
                           alt={`Photo from ${event.title}`}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                         />
                       </div>
                     ))
                   ) : (
-                    <div className="col-span-1 md:col-span-2 aspect-[21/9] rounded-2xl border border-dashed border-border flex flex-col items-center justify-center bg-secondary/30 text-muted-foreground/50 space-y-3">
+                    <div className="col-span-1 md:col-span-2 py-16 rounded-2xl border border-dashed border-border flex flex-col items-center justify-center bg-secondary/30 text-muted-foreground/50 space-y-3">
                       <Camera className="w-8 h-8 opacity-40" />
                       <span className="text-sm font-medium uppercase tracking-wider">Awaiting Photos</span>
                     </div>
