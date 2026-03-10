@@ -90,6 +90,7 @@ const initialTimelineData: TimelineEvent[] = [
 interface TimelineContextType {
   timelineData: TimelineEvent[];
   addImages: (eventId: string, newImages: string[]) => void;
+  removeImage: (eventId: string, imageIndex: number) => void;
 }
 
 const TimelineContext = createContext<TimelineContextType | undefined>(undefined);
@@ -110,8 +111,23 @@ export function TimelineProvider({ children }: { children: React.ReactNode }) {
     }));
   };
 
+  const removeImage = (eventId: string, imageIndex: number) => {
+    setTimelineData(prev => prev.map(event => {
+      if (event.id === eventId) {
+        const newImages = [...event.images];
+        newImages.splice(imageIndex, 1);
+        return {
+          ...event,
+          images: newImages,
+          isFuture: newImages.length === 0 && event.images.length > 0 ? true : event.isFuture // revert to future if all images deleted (optional logic, but makes sense)
+        };
+      }
+      return event;
+    }));
+  };
+
   return (
-    <TimelineContext.Provider value={{ timelineData, addImages }}>
+    <TimelineContext.Provider value={{ timelineData, addImages, removeImage }}>
       {children}
     </TimelineContext.Provider>
   );

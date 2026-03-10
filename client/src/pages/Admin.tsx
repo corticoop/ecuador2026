@@ -1,14 +1,16 @@
 import { useState, useRef } from "react";
 import { useTimeline } from "@/context/TimelineContext";
-import { ArrowLeft, ImagePlus, Loader2 } from "lucide-react";
+import { ArrowLeft, ImagePlus, Loader2, X } from "lucide-react";
 import { useLocation } from "wouter";
 import imageCompression from 'browser-image-compression';
+import { useToast } from "@/hooks/use-toast";
 
 export default function Admin() {
-  const { timelineData, addImages } = useTimeline();
+  const { timelineData, addImages, removeImage } = useTimeline();
   const [, setLocation] = useLocation();
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
   const [isCompressing, setIsCompressing] = useState<{ [key: string]: boolean }>({});
+  const { toast } = useToast();
   
   const handleFileChange = async (eventId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -34,6 +36,18 @@ export default function Admin() {
 
         const imageUrls = await Promise.all(compressedImagesPromises);
         addImages(eventId, imageUrls);
+        
+        toast({
+          title: "Upload Successful",
+          description: `Successfully added ${filesArray.length} photo${filesArray.length !== 1 ? 's' : ''}.`,
+          duration: 3000,
+        });
+      } catch (error) {
+        toast({
+          title: "Upload Failed",
+          description: "There was an error processing your images.",
+          variant: "destructive",
+        });
       } finally {
         setIsCompressing(prev => ({ ...prev, [eventId]: false }));
         
@@ -43,6 +57,15 @@ export default function Admin() {
         }
       }
     }
+  };
+
+  const handleDelete = (eventId: string, index: number) => {
+    removeImage(eventId, index);
+    toast({
+      title: "Photo Removed",
+      description: "The photo has been removed from the timeline.",
+      duration: 3000,
+    });
   };
 
   return (
@@ -117,8 +140,17 @@ export default function Admin() {
               {event.images.length > 0 && (
                 <div className="mt-6 pt-6 border-t border-border flex gap-3 overflow-x-auto pb-2">
                   {event.images.map((img, i) => (
-                    <div key={i} className="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-border">
+                    <div key={i} className="group relative w-20 h-20 shrink-0 rounded-lg overflow-hidden border border-border">
                       <img src={img} className="w-full h-full object-cover" alt="" />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <button
+                          onClick={() => handleDelete(event.id, i)}
+                          className="p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors"
+                          title="Delete photo"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
