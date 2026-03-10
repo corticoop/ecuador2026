@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Calendar, Camera, Heart, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { MapPin, Calendar, Camera, Heart, X, ChevronLeft, ChevronRight, Lock } from "lucide-react";
+import { Link } from "wouter";
+import { useTimeline } from "@/context/TimelineContext";
 
 // Asset imports
-import luggageImg from "@assets/IMG_3152_1773063740528.jpg";
-import busImg from "@assets/IMG_0003_1773063740530.jpg";
 import mapImg from "@assets/GPI_1773063930173.jpg";
 import newTurtleImg from "@assets/closeup-green-sea-turtle-swimming-underwater-lights_1773064213060.jpg";
 
@@ -94,6 +94,7 @@ const timelineData: TimelineEvent[] = [
 ];
 
 export default function Home() {
+  const { timelineData } = useTimeline();
   const [selectedGallery, setSelectedGallery] = useState<{ images: string[], initialIndex: number } | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -133,7 +134,7 @@ export default function Home() {
   }, [selectedGallery]);
 
   return (
-    <div className="min-h-screen bg-white text-foreground selection:bg-primary/20 pb-20">
+    <div className="min-h-screen bg-white text-foreground selection:bg-primary/20 pb-20 relative">
       {/* Visual Hero Banner */}
       <div className="w-full h-[50vh] md:h-[60vh] relative overflow-hidden">
         <img 
@@ -247,27 +248,29 @@ export default function Home() {
                   {event.description}
                 </p>
 
-                {/* Images Grid - With gallery functionality */}
-                <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                {/* Images Grid - With masonry/masonry-like layout */}
+                <div className="pt-6">
                   {event.images.length > 0 ? (
-                    event.images.map((img, i) => (
-                      <div 
-                        key={i} 
-                        className="group relative rounded-2xl overflow-hidden bg-secondary border border-border/50 cursor-pointer"
-                        onClick={() => setSelectedGallery({ images: event.images, initialIndex: i })}
-                      >
-                        <img 
-                          src={img} 
-                          alt={`Photo from ${event.title}`}
-                          className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                          <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+                      {event.images.map((img, i) => (
+                        <div 
+                          key={i} 
+                          className="group relative aspect-square md:aspect-[4/3] rounded-xl overflow-hidden bg-secondary border border-border/50 cursor-pointer"
+                          onClick={() => setSelectedGallery({ images: event.images, initialIndex: i })}
+                        >
+                          <img 
+                            src={img} 
+                            alt={`Photo from ${event.title}`}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
+                          </div>
                         </div>
-                      </div>
-                    ))
+                      ))}
+                    </div>
                   ) : (
-                    <div className="col-span-1 md:col-span-2 py-16 rounded-2xl border border-dashed border-border flex flex-col items-center justify-center bg-secondary/30 text-muted-foreground/50 space-y-3">
+                    <div className="w-full py-16 rounded-2xl border border-dashed border-border flex flex-col items-center justify-center bg-secondary/30 text-muted-foreground/50 space-y-3">
                       <Camera className="w-8 h-8 opacity-40" />
                       <span className="text-sm font-medium uppercase tracking-wider">Awaiting Photos</span>
                     </div>
@@ -281,8 +284,12 @@ export default function Home() {
       </main>
       
       {/* Footer */}
-      <footer className="py-12 text-center text-muted-foreground text-sm border-t border-border mt-12">
+      <footer className="py-12 relative text-center text-muted-foreground text-sm border-t border-border mt-12">
         <p>Updating live from the equator. More adventures to come!</p>
+        
+        <Link href="/login" className="absolute bottom-6 right-6 text-muted-foreground/30 hover:text-primary transition-colors">
+          <Lock className="w-4 h-4" />
+        </Link>
       </footer>
 
       {/* Fullscreen Image Gallery Modal */}
