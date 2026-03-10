@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 import luggageImg from "@assets/IMG_3152_1773063740528.jpg";
 import busImg from "@assets/IMG_0003_1773063740530.jpg";
+import nycAerialImg from "@assets/Screenshot_2026-03-10_at_11.15.50_AM_1773155905075.png";
+import planeImg1 from "@assets/Screenshot_2026-03-10_at_11.15.28_AM_1773155905075.png";
+import planeImg2 from "@assets/Screenshot_2026-03-10_at_7.57.44_AM_1773155905075.png";
 
 export interface TimelineEvent {
   id: string;
@@ -19,7 +22,7 @@ const initialTimelineData: TimelineEvent[] = [
     title: "The Journey Begins",
     location: "New York → Quito, Ecuador",
     description: "Departure from New York, arriving in the high-altitude capital of Ecuador.",
-    images: [luggageImg, busImg],
+    images: [luggageImg, busImg, nycAerialImg, planeImg1, planeImg2],
     isFuture: false,
   },
   {
