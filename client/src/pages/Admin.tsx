@@ -1,24 +1,46 @@
 import { useState, useRef } from "react";
 import { useTimeline } from "@/context/TimelineContext";
-import { ArrowLeft, ImagePlus, Upload } from "lucide-react";
+import { ArrowLeft, ImagePlus, Loader2 } from "lucide-react";
 import { useLocation } from "wouter";
+import imageCompression from 'browser-image-compression';
 
 export default function Admin() {
   const { timelineData, addImages } = useTimeline();
   const [, setLocation] = useLocation();
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
+  const [isCompressing, setIsCompressing] = useState<{ [key: string]: boolean }>({});
   
-  const handleFileChange = (eventId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (eventId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      setIsCompressing(prev => ({ ...prev, [eventId]: true }));
       const filesArray = Array.from(e.target.files);
       
-      // Convert files to object URLs for mockup viewing
-      const imageUrls = filesArray.map(file => URL.createObjectURL(file));
-      addImages(eventId, imageUrls);
-      
-      // Reset input
-      if (fileInputRefs.current[eventId]) {
-        fileInputRefs.current[eventId]!.value = '';
+      try {
+        const compressedImagesPromises = filesArray.map(async (file) => {
+          const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true
+          };
+          
+          try {
+            const compressedFile = await imageCompression(file, options);
+            return URL.createObjectURL(compressedFile);
+          } catch (error) {
+            console.error("Error compressing image:", error);
+            return URL.createObjectURL(file); // Fallback to original if compression fails
+          }
+        });
+
+        const imageUrls = await Promise.all(compressedImagesPromises);
+        addImages(eventId, imageUrls);
+      } finally {
+        setIsCompressing(prev => ({ ...prev, [eventId]: false }));
+        
+        // Reset input
+        if (fileInputRefs.current[eventId]) {
+          fileInputRefs.current[eventId]!.value = '';
+        }
       }
     }
   };
@@ -69,13 +91,24 @@ export default function Admin() {
                     className="hidden"
                     ref={el => fileInputRefs.current[event.id] = el}
                     onChange={(e) => handleFileChange(event.id, e)}
+                    disabled={isCompressing[event.id]}
                   />
                   <button 
                     onClick={() => fileInputRefs.current[event.id]?.click()}
-                    className="w-full md:w-auto px-6 py-3 bg-foreground text-background font-medium rounded-xl hover:bg-foreground/90 transition-colors flex items-center justify-center gap-2"
+                    disabled={isCompressing[event.id]}
+                    className="w-full md:w-auto px-6 py-3 bg-foreground text-background font-medium rounded-xl hover:bg-foreground/90 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
                   >
-                    <ImagePlus className="w-4 h-4" />
-                    Upload Photos
+                    {isCompressing[event.id] ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Optimizing...
+                      </>
+                    ) : (
+                      <>
+                        <ImagePlus className="w-4 h-4" />
+                        Upload Photos
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
