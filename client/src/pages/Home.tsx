@@ -248,20 +248,21 @@ export default function Home() {
                   {event.description}
                 </p>
 
-                {/* Images Grid - With masonry/masonry-like layout */}
+                {/* Images Grid - Uncropped masonry layout */}
                 <div className="pt-6">
                   {event.images.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+                    <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
                       {event.images.map((img, i) => (
                         <div 
                           key={i} 
-                          className="group relative aspect-square md:aspect-[4/3] rounded-xl overflow-hidden bg-secondary border border-border/50 cursor-pointer"
+                          className="group relative rounded-xl overflow-hidden bg-secondary border border-border/50 cursor-pointer break-inside-avoid"
                           onClick={() => setSelectedGallery({ images: event.images, initialIndex: i })}
                         >
                           <img 
                             src={img} 
                             alt={`Photo from ${event.title}`}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                            className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                            loading="lazy"
                           />
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                             <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
