@@ -25,7 +25,7 @@ const timelineData: TimelineEvent[] = [
     title: "The Journey Begins",
     location: "New York → Quito, Ecuador",
     description: "Departure from New York, arriving in the high-altitude capital of Ecuador.",
-    images: [luggageImg, busImg],
+    images: [],
     isFuture: false,
   },
   {
