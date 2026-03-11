@@ -5,6 +5,18 @@ import nycAerialImg from "@assets/Screenshot_2026-03-10_at_11.15.50_AM_177315590
 import planeImg1 from "@assets/Screenshot_2026-03-10_at_11.15.28_AM_1773155905075.png";
 import planeImg2 from "@assets/Screenshot_2026-03-10_at_7.57.44_AM_1773155905075.png";
 import quitoSignImg from "@assets/Screenshot_2026-03-10_at_4.53.02_PM_1773175993134.png";
+import day2Img1 from "@assets/76026510-e29d-4300-b4d2-d82f14e8259b_1773246304705.jpeg";
+import day2Img2 from "@assets/08e740af-ae1a-4015-b37b-5b4a2202d150_1773246304705.jpeg";
+import day2Img3 from "@assets/IMG_0129_1773246304705.jpeg";
+import day2Img4 from "@assets/IMG_0114_1773246304705.jpeg";
+import day2Img5 from "@assets/IMG_8949_1773246304705.jpeg";
+import day2Img6 from "@assets/IMG_8948_1773246304706.jpeg";
+import day2Img7 from "@assets/IMG_0099_1773246304706.jpeg";
+import day2Img8 from "@assets/IMG_4891_1773246304706.jpeg";
+import day2Img9 from "@assets/IMG_4845_1773246304706.jpeg";
+import day2Img10 from "@assets/IMG_8851_1773246304706.jpeg";
+import day2Img11 from "@assets/IMG_8827_1773246304706.jpeg";
+import day2Img12 from "@assets/IMG_8821_1773246304706.jpeg";
 
 export interface TimelineEvent {
   id: string;
@@ -32,8 +44,8 @@ const initialTimelineData: TimelineEvent[] = [
     title: "Exploring the Equator",
     location: "Quito, Ecuador",
     description: "Visiting the Intiñan Museum and witnessing natural forces at work near the equator.",
-    images: [],
-    isFuture: true,
+    images: [day2Img1, day2Img2, day2Img3, day2Img4, day2Img5, day2Img6, day2Img7, day2Img8, day2Img9, day2Img10, day2Img11, day2Img12],
+    isFuture: false,
   },
   {
     id: "day3",
