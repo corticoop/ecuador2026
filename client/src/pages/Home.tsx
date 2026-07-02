@@ -256,7 +256,22 @@ export default function Home() {
 
         </div>
       </main>
-      
+
+      {/* Closing Quote */}
+      <section className="px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="p-6 md:p-8 bg-green-50/80 border border-green-200/60 rounded-2xl relative shadow-sm"
+        >
+          <p className="text-lg md:text-xl text-green-900 italic font-serif leading-relaxed">
+            "My favorite part of the whole trip was the street art and exploring all the wildlife on the beaches of San Cristóbal. Thanks again for helping make this trip happen!"
+          </p>
+          <p className="text-primary font-bold mt-4">— William</p>
+        </motion.div>
+      </section>
+
       {/* Footer */}
       <footer className="py-12 relative text-center text-muted-foreground text-sm border-t border-border mt-12">
         <p>Updating live from the equator. More adventures to come!</p>
