@@ -18,6 +18,59 @@ import day2Img10 from "@assets/IMG_8851_1773246304706.jpeg";
 import day2Img11 from "@assets/IMG_8827_1773246304706.jpeg";
 import day2Img12 from "@assets/IMG_8821_1773246304706.jpeg";
 
+import galapagosImg1 from "@assets/galapagos-01.jpg";
+import galapagosImg2 from "@assets/galapagos-02.jpg";
+import galapagosImg3 from "@assets/galapagos-03.jpg";
+import galapagosImg4 from "@assets/galapagos-04.jpg";
+import galapagosImg5 from "@assets/galapagos-05.jpg";
+import galapagosImg6 from "@assets/galapagos-06.jpg";
+import galapagosImg7 from "@assets/galapagos-07.jpg";
+import galapagosImg8 from "@assets/galapagos-08.jpg";
+import galapagosImg9 from "@assets/galapagos-09.jpg";
+import galapagosImg10 from "@assets/galapagos-10.jpg";
+import galapagosImg11 from "@assets/galapagos-11.jpg";
+import galapagosImg12 from "@assets/galapagos-12.jpg";
+import galapagosImg13 from "@assets/galapagos-13.jpg";
+import galapagosImg14 from "@assets/galapagos-14.jpg";
+import galapagosImg15 from "@assets/galapagos-15.jpg";
+import galapagosImg16 from "@assets/galapagos-16.jpg";
+import galapagosImg17 from "@assets/galapagos-17.jpg";
+import galapagosImg18 from "@assets/galapagos-18.jpg";
+import galapagosImg19 from "@assets/galapagos-19.jpg";
+import galapagosImg20 from "@assets/galapagos-20.jpg";
+import galapagosImg21 from "@assets/galapagos-21.jpg";
+import galapagosImg22 from "@assets/galapagos-22.jpg";
+
+import andeanImg1 from "@assets/andean-01.jpg";
+import andeanImg2 from "@assets/andean-02.jpg";
+import andeanImg3 from "@assets/andean-03.jpg";
+import andeanImg4 from "@assets/andean-04.jpg";
+import andeanImg5 from "@assets/andean-05.jpg";
+import andeanImg6 from "@assets/andean-06.jpg";
+import andeanImg7 from "@assets/andean-07.jpg";
+import andeanImg8 from "@assets/andean-08.jpg";
+import andeanImg9 from "@assets/andean-09.jpg";
+import andeanImg10 from "@assets/andean-10.jpg";
+import andeanImg11 from "@assets/andean-11.jpg";
+import andeanImg12 from "@assets/andean-12.jpg";
+import andeanImg13 from "@assets/andean-13.jpg";
+import andeanImg14 from "@assets/andean-14.jpg";
+
+import miamiImg1 from "@assets/miami-01.jpg";
+import miamiImg2 from "@assets/miami-02.jpg";
+import miamiImg3 from "@assets/miami-03.jpg";
+import miamiImg4 from "@assets/miami-04.jpg";
+import miamiImg5 from "@assets/miami-05.jpg";
+import miamiImg6 from "@assets/miami-06.jpg";
+import miamiImg7 from "@assets/miami-07.jpg";
+import miamiImg8 from "@assets/miami-08.jpg";
+import miamiImg9 from "@assets/miami-09.jpg";
+import miamiImg10 from "@assets/miami-10.jpg";
+import miamiImg11 from "@assets/miami-11.jpg";
+import miamiImg12 from "@assets/miami-12.jpg";
+import miamiImg13 from "@assets/miami-13.jpg";
+import miamiImg14 from "@assets/miami-14.jpg";
+
 export interface TimelineEvent {
   id: string;
   date: string;
@@ -49,57 +102,30 @@ const initialTimelineData: TimelineEvent[] = [
   },
   {
     id: "day3",
-    date: "Wed, Mar 11",
-    title: "Arrival in the Galapagos",
-    location: "Santa Cruz Island",
-    description: "Flying to the Galapagos Islands! Visiting the Twin Craters and Santa Cruz highlands to see wild tortoises.",
-    images: [],
-    isFuture: true,
-  },
-  {
-    id: "day4",
-    date: "Thu, Mar 12",
-    title: "Isabela Island Adventures",
-    location: "Isabela Island",
-    description: "Boat travel to Isabela Island. Visiting a pink flamingo habitat, tortoise breeding center, and snorkeling at Tintoreras Lava Islet.",
-    images: [],
-    isFuture: true,
-  },
-  {
-    id: "day5",
-    date: "Fri, Mar 13",
-    title: "Darwin's Footsteps",
-    location: "Santa Cruz Island",
-    description: "Hiking to Tortuga Bay, relaxing on Playa Mansa, and visiting the Charles Darwin Research Station.",
-    images: [],
-    isFuture: true,
-  },
-  {
-    id: "day6",
-    date: "Sat, Mar 14",
-    title: "San Cristóbal Discoveries",
-    location: "San Cristóbal Island",
-    description: "Traveling to San Cristóbal. Visiting the Interpretation Center, hiking Tijeretas Hill, and snorkeling at La Loberia Beach.",
-    images: [],
-    isFuture: true,
-  },
-  {
-    id: "day7",
-    date: "Sun, Mar 15",
-    title: "Final Island Explorations",
-    location: "San Cristóbal → Quito",
-    description: "Enjoying final exploration time on San Cristóbal before flying back to the mainland capital.",
-    images: [],
-    isFuture: true,
+    date: "Wed, Mar 11 – Sun, Mar 15",
+    title: "Galápagos Islands Adventure",
+    location: "Santa Cruz, Isabela & San Cristóbal Islands",
+    description: "Five unforgettable days island-hopping the Galápagos: Twin Craters and wild tortoises in the Santa Cruz highlands, a flamingo habitat and snorkeling at Tintoreras on Isabela Island, hiking Tortuga Bay and visiting the Charles Darwin Research Station, and rounding it out on San Cristóbal with Tijeretas Hill and the sea lions of La Lobería before flying back to Quito.",
+    images: [galapagosImg1, galapagosImg2, galapagosImg3, galapagosImg4, galapagosImg5, galapagosImg6, galapagosImg7, galapagosImg8, galapagosImg9, galapagosImg10, galapagosImg11, galapagosImg12, galapagosImg13, galapagosImg14, galapagosImg15, galapagosImg16, galapagosImg17, galapagosImg18, galapagosImg19, galapagosImg20, galapagosImg21, galapagosImg22],
+    isFuture: false,
   },
   {
     id: "day8",
     date: "Mon, Mar 16",
     title: "Andean Culture",
-    location: "Otavalo & Cotacachi → Home",
+    location: "Otavalo & Cotacachi → Airport",
     description: "Day trip to Otavalo to see the famous local market and artisan demonstrations, followed by a waterfall visit in Cotacachi before heading to the airport.",
-    images: [],
-    isFuture: true,
+    images: [andeanImg1, andeanImg2, andeanImg3, andeanImg4, andeanImg5, andeanImg6, andeanImg7, andeanImg8, andeanImg9, andeanImg10, andeanImg11, andeanImg12, andeanImg13, andeanImg14],
+    isFuture: false,
+  },
+  {
+    id: "day9",
+    date: "Wed, Mar 18",
+    title: "Stranded in Miami",
+    location: "Miami, Florida",
+    description: "A flight delay turned into an unexpected extra day! We made the most of it with a rainy walk along Miami Beach and an afternoon admiring the colorful street art and murals of the Design District before finally heading home.",
+    images: [miamiImg1, miamiImg2, miamiImg3, miamiImg4, miamiImg5, miamiImg6, miamiImg7, miamiImg8, miamiImg9, miamiImg10, miamiImg11, miamiImg12, miamiImg13, miamiImg14],
+    isFuture: false,
   }
 ];
 
